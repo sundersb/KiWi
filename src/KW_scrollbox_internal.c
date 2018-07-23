@@ -23,10 +23,14 @@ void RenderScrollboxFrame(KW_Scrollbox * sb) {
   KW_Rect targetgeom;
   KW_Widget * widget = sb->root;
   tileset = KW_GetWidgetTilesetSurface(widget);
+	KW_CustomRenderFunction renderfunc = KW_GetWidgetCustomRenderFunction(widget);
   KW_GetWidgetGeometry(widget, &targetgeom);
-  
+
   if (sb->framerender != NULL) KW_ReleaseTexture(KW_GetWidgetRenderer(widget), sb->framerender);
-  sb->framerender = KW_CreateTileFrameTexture(KW_GetWidgetRenderer(widget), tileset, 9, 0, targetgeom.w, targetgeom.h, KW_FALSE, KW_FALSE);
+	if (renderfunc != NULL)
+		sb->framerender = renderfunc(KW_GetWidgetRenderer(widget), widget, tileset, targetgeom.w, targetgeom.h);
+	else
+		sb->framerender = KW_CreateTileFrameTexture(KW_GetWidgetRenderer(widget), tileset, 9, 0, targetgeom.w, targetgeom.h, KW_FALSE, KW_FALSE);
 }
 
 void PaintScrollboxFrame(KW_Widget * widget, const KW_Rect * absolute, void * data) {
