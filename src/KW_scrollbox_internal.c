@@ -22,8 +22,8 @@ void RenderScrollboxFrame(KW_Scrollbox * sb) {
   KW_Surface * tileset;
   KW_Rect targetgeom;
   KW_Widget * widget = sb->root;
-  tileset = KW_GetWidgetTilesetSurface(widget);
 	KW_CustomRenderFunction renderfunc = KW_GetWidgetCustomRenderFunction(widget);
+  tileset = KW_GetWidgetTilesetSurface(widget);
   KW_GetWidgetGeometry(widget, &targetgeom);
 
   if (sb->framerender != NULL) KW_ReleaseTexture(KW_GetWidgetRenderer(widget), sb->framerender);
